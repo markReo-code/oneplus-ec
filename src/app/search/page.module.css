@@ -1,0 +1,29 @@
+/* .searchTitle {
+    font-size: 3.2rem;
+    font-weight: 500;
+    color: #212121;
+    margin-bottom: 36px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -.7px;
+    margin-bottom: 36px;
+} */
+
+.empty {
+    font-size: 1.8rem;
+    margin: 50px auto 160px;
+}
+
+@media screen and (max-width: 1024px) {
+    .empty {
+        margin: 24px auto 120px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .empty {
+        font-size: 1.7rem;
+    }
+}
+

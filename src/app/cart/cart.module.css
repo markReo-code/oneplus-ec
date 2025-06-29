@@ -1,0 +1,93 @@
+.section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 0 96px;
+}
+
+.container {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.empty {
+    padding: 36px 0 36px;
+}
+
+.emptyText {
+    font-size: 15px;
+    text-align: center;
+    list-style: 1;
+}
+
+.title {
+    font-size: 26px;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.totalWrapper {
+    padding: 0 0 56px;
+    font-size: 1.8rem;
+}
+
+.totalTerm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 282px;
+    margin-left: auto;
+}
+
+.totalText {
+
+}
+
+.totalAmount {
+    text-align: right;
+}
+
+
+.btnWrapper {
+    width: 100%;
+    text-align: center;
+    width: 260px;
+    margin: 0 auto;
+}
+
+.btnWrapper + .btnWrapper {
+    margin-top: 16px;
+}
+
+@media screen and (max-width: 859px) {
+    .section {
+        padding: 40px 0 60px;
+    }
+      .title {
+        font-size: 24px;
+        margin-bottom: 36px;
+      }
+}
+
+@media screen and (max-width: 768px) {
+
+    .section {
+        padding: 40px 0 60px;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-bottom: 36px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 24px;
+        margin-bottom: 36px;
+    }
+}
+

@@ -1,95 +1,109 @@
+import { Metadata } from "next";
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "./home.module.css";
+import Slider from "./_components/Sliders/Slider";
+// import "swiper/css";
+// import "swiper/css/navigation";
 
-export default function Home() {
+import {
+  getBottoms,
+  getShirts,
+} from "@/utils/supabase/supabaseServer";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "ONEPLUS | メンズファッション",
+  description: "ONEPLUS(ワンプラス)はミニマルで洗練されたデザインを提案するメンズ向けアパレルブランド。Tシャツ、シャツ、ボトムス、キャップなど日常にプラスaのスタイルを。"
+}
+
+export default async function Home() {
+  const bottoms = await getBottoms();
+  const shirts = await getShirts();
+  const sliceBottomsData = bottoms.slice(0, 4);
+  const sliceShirtsData = shirts.slice(0, 4);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <section className={styles.mainvisual}>
+        <picture>
+          <source srcSet="/mainvisual_sp.jpg" media="(max-width: 768px)" />
+          <img
+            src="/mainvisual_pc.jpg"
+            alt="ONEPLUSのTシャツを着用した男性モデルのブランドビジュアル"
+            className={styles.mainvisualImage}
+          />
+        </picture>
+      </section>
+
+      <Slider />
+
+      <section className={styles.section}>
+        <div className="inner">
+          <h2 className={styles.heading}>Shirts</h2>
+          <ul className="product-list">
+            {sliceShirtsData.map((product) => (
+              <li key={product.slug} className="product-item">
+                <Link href={`/products/${product.slug}`}>
+                  <figure className="product-media">
+                    <Image
+                      src={product.image}
+                      width={359}
+                      height={513}
+                      alt={product.title}
+                      className="product-image"
+                    />
+                  </figure>
+                  <div className="product-content">
+                    <p className="product-title">{product.title}</p>
+                    <p className="product-price">
+                      ￥{product.price.toLocaleString()}
+                    </p>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="button-block">
+            <Link href="/collections/shirts" className="button button--base">
+              VIEW MORE
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <section className={`${styles.section} ${styles["section--bottoms"]}`}>
+        <div className="inner">
+          <h2 className={styles.heading}>Bottoms</h2>
+          <ul className="product-list">
+            {sliceBottomsData.map((product) => (
+              <li key={product.slug} className="product-item">
+                <Link href={`/products/${product.slug}`} className="">
+                  <figure className="product-media">
+                    <Image
+                      src={product.image}
+                      width={359}
+                      height={513}
+                      alt={product.title}
+                      className="product-image"
+                    />
+                  </figure>
+                  <div className="product-content">
+                    <p className="product-title">{product.title}</p>
+                    <p className="product-price">
+                      ￥{product.price.toLocaleString()}
+                    </p>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="button-block">
+            <Link href="/collections/bottoms" className="button button--base">
+              VIEW MORE
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

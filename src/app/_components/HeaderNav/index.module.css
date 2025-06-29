@@ -1,0 +1,48 @@
+.nav {
+    flex: 1 1 0;
+}
+
+.list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.item {
+    font-size: 1.4rem;
+    color: var(--color-base);
+    text-transform: uppercase;
+    position: relative;
+}
+
+.button {
+    font-size: 1.4rem;
+    font-family: var(--font-family-base);
+    color: var(--color-base);
+    text-transform: uppercase;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.arrow {
+    display: block;
+    width: 10px;
+    height: 6px;
+}
+
+.button[aria-expanded=true] .arrow {
+    transform: rotate(-180deg);
+}
+
+.link {
+    padding: 12px 15px;
+}
+
+@media screen and (max-width: 1024px) {
+    .nav {
+        display: none;
+    }
+}

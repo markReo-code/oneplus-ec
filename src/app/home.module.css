@@ -1,0 +1,49 @@
+.mainvisual {
+  width: 100%;
+}
+
+.mainvisualImage {
+  width: 100%;
+  height: auto;
+}
+
+.section {
+  padding: 60px 0;
+}
+
+.section--bottoms {
+  padding-bottom: 96px;
+}
+
+.heading {
+  font-size: 2.6rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: -.7px;
+  margin-bottom: 42px;
+}
+
+@media screen and (max-width: 1024px) {
+  .section {
+    padding: 48px 0;
+  }
+
+  .section--bottoms {
+    padding-bottom: 60px;
+  }
+}
+
+@media screen and (max-width: 659px) {
+  .section {
+      padding: 32px 0;
+  }
+  .section--bottoms {
+      padding-bottom: 60px;
+  }
+
+  .heading {
+    margin-bottom: 28px;
+  }
+}

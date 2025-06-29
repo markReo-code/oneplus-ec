@@ -1,0 +1,112 @@
+.nav {
+    padding: 0 0 80px;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.item {
+    color: rgb(var(--color-white));
+}
+
+.navTitle {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: rgb(var(--color-white));
+    margin-bottom: 30px;
+}
+
+.label {
+    font-size: 1.4rem;
+}
+
+.label + .label {
+    margin-top: 30px;
+}
+
+.arrow {
+    display: none;
+}
+
+.snsList {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+@media screen and (max-width: 1079px) {
+    .nav {
+        padding: 0 0 60px;
+    }
+
+    .list {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nav {
+        padding: 0 0 48px;
+    }
+    .list {
+        grid-template-columns: 1fr;
+        row-gap: 0;
+    }
+
+    .navTitle {
+        width: 100%;
+        font-size: 1.5rem;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center; 
+    }
+
+    .label + .label {
+        margin-top: 0;
+    }
+
+    .label:not(:first-child) {
+        margin-top: 12px;
+    }
+
+    .panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        visibility: hidden;
+        transition: grid-template-rows 0.3s ease-out;
+    }
+
+    .panel.open {
+        visibility: visible;
+        grid-template-rows: 1fr;
+    }
+
+    .panelInner {
+        overflow: hidden;
+    }
+
+    .panelList {
+        padding-bottom: 30px;
+    }
+
+    .toggleIcon {
+        display: block;
+        width: 12px;
+        height: 12px;
+        position: relative;
+    }
+
+    .arrow {
+        display: block;
+        width: 10px;
+        height: 6px;
+    }
+
+    .navTitle[aria-expanded=true] .arrow {
+        transform: rotate(-180deg);
+    }
+}

@@ -1,0 +1,32 @@
+
+.ConfirmInner {
+    width: 100%;
+    max-width: 460px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 24px;
+   margin: 0 auto;
+}
+
+.ConfirmTitle {
+    font-size: clamp(22px, 20.592px + 0.376vw, 26px);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.Confirmtext {
+    font-size: 1.6rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.link {
+    font-size: 16px;
+    color: #777777;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-align: center;
+}
+

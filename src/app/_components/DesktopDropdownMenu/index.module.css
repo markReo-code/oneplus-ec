@@ -1,0 +1,33 @@
+.panel {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(var( --color-white));
+    width: 200px;
+    border: 1px solid var(--header-border-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.panel.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.panel.noTransition {
+  transition: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.list {
+    padding: 22px 25px;
+}
+
+.link {
+    display: block;
+    font-size: 1.4rem;
+    padding: 8px 0;
+    text-align: left;
+}

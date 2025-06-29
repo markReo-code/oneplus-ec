@@ -1,0 +1,68 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(var(--color-white));
+    border-bottom: 1px solid var(--header-border-color);
+    z-index: 300;
+}
+
+.inner {
+    width: 100%;
+    max-width: 1440px;
+    display: flex;
+    align-items: center;
+    padding: 17px 60px;
+    margin: 0 auto;
+}
+
+.logo {
+    /* font-size: 28px;
+    font-weight: 700;
+    font-family: "neue-haas-grotesk-display", sans-serif;
+    letter-spacing: -.7px; */
+}
+
+.logoLink {
+    display: block;
+    width: max-content;
+}
+
+.logoImage {
+    object-fit: contain;
+}
+
+/* actions */
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 20px;
+    flex: 1 1 0;
+}
+
+@media screen and (max-width: 1024px) {
+    .logoImage {
+      max-width: 122px;
+    }
+
+    .inner {
+        padding: 21px 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .inner {
+        padding: 21px 24px;
+    }
+
+    .actions {
+        column-gap: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .actions {
+        column-gap: 8px;
+    }
+}

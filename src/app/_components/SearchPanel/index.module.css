@@ -1,0 +1,58 @@
+.searchPanel {
+    position: absolute;
+}
+
+.searchClose {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 20px auto;
+}
+
+.searchOverlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--color-black), 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 500;
+}
+
+.open .searchOverlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.searchPanelBody {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 325px;
+    height: 100vh;
+    background-color: rgb(var(--color-white));
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    z-index: 500;
+    padding: 18px 20px;
+}
+
+.open .searchPanelBody {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+@media screen and (max-width: 768px) {
+    .searchPanelBody {
+        width: 300px;
+    }
+}
+

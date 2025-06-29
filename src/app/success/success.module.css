@@ -1,0 +1,37 @@
+
+/* 決済用のボタン */
+.button {
+    display: block;
+    width: 260px;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #ffffff;
+    background-color: #212121;
+    padding: 11px 8px;
+}
+
+
+/* ログイン、新規会員登録等のボタン */
+.formButton {
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #212121;
+  padding: 9.5px 8px;
+  display: block;
+  width: 100%;
+  margin: 32px auto 0;
+}
+
+
+/* トップページのボタン */
+.button {
+  display: block;
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-align: center;
+  background-color: #212121;
+  padding: 17px 0;
+}

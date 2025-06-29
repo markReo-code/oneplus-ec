@@ -1,0 +1,19 @@
+.link {
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    font-size: 1rem;
+    color: rgb(var(--color-white));
+    line-height: 1;
+    background-color: var(--color-base);
+    border-radius: 50%;
+}

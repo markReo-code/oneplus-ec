@@ -1,0 +1,44 @@
+.footer {
+    width: 100%;
+    padding: 80px 0 0;
+    background-color: var(--color-base);
+}
+
+.inner {
+    width: 100%;
+    max-width: 1440px;
+    padding-inline: 60px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.bottom {
+    padding: 36px 0;
+    border-top: 1px solid var(--color-gray-dark);
+}
+
+.copyright {
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--color-gray-dark);
+}
+
+@media screen and (max-width: 1079px) {
+    .footer {
+        padding: 60px 0 0 0;
+    }
+
+    .bottom {
+        padding: 28px 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer {
+        padding: 48px 0 0 0;
+    }
+
+    .bottom {
+        padding: 24px 0;
+    }
+}
