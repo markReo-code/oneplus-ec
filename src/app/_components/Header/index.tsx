@@ -6,6 +6,7 @@ import SearchPanel from "../SearchPanel";
 import CartIcon from "../CartIcon";
 import Drawer from "../Drawer";
 import Logo from "../Logo";
+import { Suspense } from "react";
 
 export default function Header() {
   return (
@@ -18,7 +19,9 @@ export default function Header() {
         <Logo />
 
         <div className={styles.actions}>
-          <SearchPanel />
+          <Suspense>
+              <SearchPanel />
+          </Suspense>
           <Link href="/login" className={styles.actionItem}>
             <Image src="/login.svg" alt="Login" width={24} height={24} />
           </Link>

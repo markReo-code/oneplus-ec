@@ -9,7 +9,6 @@ import Link from "next/link";
 export default function Success() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
-
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("決済処理中...");
   const clearCart = useCartStore((state) => state.clearCart);
@@ -54,25 +53,25 @@ export default function Success() {
     };
 
     saveOrder();
-  }, []);
+  }, [sessionId, clearCart]);
 
   return (
-    <section className="page-content">
-      <div className="page-inner">
-        <div className="">
-          <div className="page-heading">
-            <h1 className="page-title">決済完了</h1>
-            <p className="page-description">
-              {loading ? "決済処理中..." : message}
-            </p>
-          </div>
-          <div className={styles.buttonWrapper}>
-            <Link href="/" className={styles.button}>
-              トップページへ戻る
-            </Link>
+      <section className="page-content">
+        <div className="page-inner">
+          <div className="">
+            <div className="page-heading">
+              <h1 className="page-title">決済完了</h1>
+              <p className="page-description">
+                {loading ? "決済処理中..." : message}
+              </p>
+            </div>
+            <div className={styles.buttonWrapper}>
+              <Link href="/" className={styles.button}>
+                トップページへ戻る
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 }

@@ -26,7 +26,6 @@ export default function SearchPanel() {
   };
 
   const closeSearch = () => {
-    // パネル内にフォーカスが残っていたら blur してから閉じる
     const activeEl = document.activeElement as HTMLElement | null;
 
     if (searchPanelRef.current?.contains(activeEl)) {

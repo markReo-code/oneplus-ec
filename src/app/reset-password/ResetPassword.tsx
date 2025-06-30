@@ -26,7 +26,7 @@ export default function ResetPassword() {
     }
 
     fetchUser();
-  },[]);
+  },[supabase, router]);
 
 
   // パスワード更新の送信処理

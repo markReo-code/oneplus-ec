@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ErrorClient from "./ErrorClient";
 
 export const metadata: Metadata = {
@@ -12,9 +13,9 @@ export default function ErrorPage() {
   return (
     <div className="page-content">
       <div className="page-inner">
-        <div className="">
+        <Suspense>
           <ErrorClient />
-        </div>
+        </Suspense>
       </div>
     </div>
   );
