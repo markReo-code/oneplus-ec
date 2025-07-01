@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "ONEPLUS",
     images: [
       {
-        url: "http://localhost:3000/eyecatch.jpg",
+        url: "https://oneplus-ec.vercel.app/eyecatch.jpg",
         width: 1200,
         height: 630,
         alt: "ONEPLUS"
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ONEPLUS",
     description: "機能性とデザイン性を追求したメンズアパレルECサイト",
-    images: ["https://まだ未定です"],
+    images: ["https://oneplus-ec.vercel.app/eyecatch.jpg"],
   }
 };
 

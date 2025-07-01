@@ -80,13 +80,24 @@ export async function signup(formData: FormData) {
     },
   });
 
-  //サインアップエラーの場合
+  //サインアップエラー
   if (error) {
+    const isDuplicate = 
+    error.name === "AuthApiError" && 
+    (error as any).status === 400 && error.message.toLowerCase().includes("already");
+
     console.error("SignUp Error:", error.message);
-    redirect("/error?type=signup");
+
+    // 重複登録の場合は signup-duplicate
+    if (isDuplicate) {
+      redirect("/error?type=signup-duplicate");
+    }
+
+     // その他のサインアップエラー signup-other
+      redirect("/error?type=signup-other");
   }
 
-  // トップページへリダイレクト
+  // 確認メールページへリダイレクト
   redirect("/confirm-email");
 }
 
