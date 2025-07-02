@@ -52,9 +52,9 @@ src/
 │   └── supabase/            # Supabase関連の初期化・共通処理
 │
 ├── middleware.ts           # Edge Middleware（Supabase セッション同期）
-├── next.config.mjs         # Next.js 設定
-├── tsconfig.json           # TypeScript 設定
-├── package.json            # スクリプト & 依存
+├── next.config.mjs
+├── tsconfig.json
+├── package.json
 ├── .env.example            # 環境変数テンプレート（本番は Vercel に設定）
 ```
 
@@ -84,6 +84,45 @@ src/
   `useEscapeToClose`, `useFocusTrap`、`useOutsideClick` など UI 制御系
 
 ## スクリーンショット
-GIF と数枚のスクリーンショットを準備中です。近日追加予定 🔧
+
+### PC
+
+#### トップページ
+<br>
+
+![トップページ](/public/screenshot-top.jpg)
+
+---
+
+#### 商品詳細ページ
+<br>
+
+![商品詳細ページ](/public/screenshot-product-detail.jpg)
+
+---
+
+#### カートページ  
+<br>
+
+![カートページ](/public/screenshot-cart.jpg)
+
+---
+
+#### 検索パネル展開  
+<br>
+
+![検索パネル展開](/public/screenshot-search.jpg)
+
+---
+
+### SP
+
+#### ドロワー展開  
+<br>
+
+![ドロワー展開](/public/screenshot-sp-drawer.jpg)
 
 ## 使い方
+
+### 1. まずはデモを見る（推奨）
+本番環境: https://oneplus-ec.vercel.app/

@@ -40,6 +40,7 @@ export default function ForgetPassword() {
               value={email}
               className="formInput"
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
               required
             />
           </div>

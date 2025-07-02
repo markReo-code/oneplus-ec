@@ -28,7 +28,6 @@ export default function ResetPassword() {
     fetchUser();
   },[supabase, router]);
 
-
   // パスワード更新の送信処理
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,7 +58,19 @@ export default function ResetPassword() {
       <div className="page-inner">
         <form onSubmit={handleSubmit}>
           <h1 className="page-title">新しいパスワードを<br className="sp__only"/>設定してください</h1>
-         
+
+          {/* Chromeのa11y警告対策用のhidden emailフィールド */}
+          {email && (
+            <input 
+              type="email"
+              name="email"
+              value={email}
+              autoComplete="username"
+              hidden
+              readOnly
+            />
+          )}
+          
           <PasswordField
             id="password"
             value={password}

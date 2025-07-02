@@ -22,11 +22,12 @@ export default function RegisterPage() {
               名前
             </label>
             <input
-               className="formInput"
+              className="formInput"
               id="name"
               type="text"
               name="name"
               placeholder="氏名"
+              autoComplete="name"
               required
             />
           </div>
@@ -41,6 +42,7 @@ export default function RegisterPage() {
               type="email"
               name="email"
               placeholder="メールアドレス"
+              autoComplete="email"
               required
             />
           </div>
