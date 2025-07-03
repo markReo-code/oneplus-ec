@@ -117,12 +117,46 @@ src/
 
 ### SP
 
-#### ドロワー展開  
-<br>
-
-![ドロワー展開](/public/screenshot-sp-drawer.jpg)
+<div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+  <div style="flex: 1 1 300px; max-width: 480px; text-align: center;">
+    <p><strong>ドロワー展開</strong></p>
+    <img src="./public/screenshot-sp-drawer.jpg" style="width: 100%;" />
+  </div>
+  <div style="flex: 1 1 300px; max-width: 480px; text-align: center;">
+    <p><strong>ドロップダウン展開</strong></p>
+    <img src="./public/screenshot-sp-drawer-open.jpg" style="width: 100%;" />
+  </div>
+</div>
 
 ## 使い方
 
-### 1. まずはデモを見る（推奨）
+### 1. まずはデモを見る
 本番環境: https://oneplus-ec.vercel.app/
+
+- 任意のメールアドレスで新規会員登録（サインアップ）が可能（確認メールが届きます）
+- ログイン状態であれば、商品詳細ページやカートに商品を追加していれば、
+「購入する」ボタンを押していただければStripeの決済画面に遷移します。
+決済に関してはStripeのテストモードを利用しているので、課金せず（料金発生せず）実際に商品を買うことが出来ます。
+
+<details>
+<summary>2. ローカルでコードを確認したい方向け（開発者向け）</summary>
+
+#### 前提
+- Node.js v18 以上を推奨
+
+#### セットアップ
+
+```bash
+git clone https://github.com/markReo-code/oneplus-ec.git
+cd oneplus-ec
+npm install
+npm run dev
+```
+
+#### 注意点
+- 商品画像や認証・検索などの一部機能は Supabase 環境がないと正しく動作しません
+- Stripe との連携も環境変数の設定が必要です
+- .env.example を参考に .env.local を作成し、Supabase／Stripe のキーを設定することで再現可能です  
+※ Supabase／Stripe のアカウント登録が必要です
+
+</details>
