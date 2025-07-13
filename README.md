@@ -1,5 +1,7 @@
 # ONEPLUS
 
+![ONEPLUS ECサイトの購入フロー（商品選択〜決済）](./public/oneplus-ec-demo.gif)
+
 ## 概要
 
 このリポジトリは、Next.js（App Router）と TypeScript を用いて構築した、仮想のメンズアパレルECサイト「ONEPLUS」の実装例です。  
@@ -138,7 +140,7 @@ src/
 
 ## 使い方
 
-### 1. まずはデモを見る
+### 1. 実際のサイトで操作する
 本番環境: https://oneplus-ec.vercel.app/
 
 - 任意のメールアドレスで新規会員登録（サインアップ）が可能（確認メールが届きます）

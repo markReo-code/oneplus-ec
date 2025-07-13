@@ -14,7 +14,7 @@ export default function Logo() {
     <WrapperTag className={styles.logo}>
       <Link href="/" className={styles.logoLink}>
         <Image
-          src="/new_2.png"
+          src="/oneplus.svg"
           width={122}
           height={22}
           className={styles.logoImage}
