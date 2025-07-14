@@ -20,7 +20,6 @@ export const getTshirts = async (): Promise<Product[]> => {
     .returns<Product[]>()
 
     if (error || !data) {
-        console.log("Error fetching T-shirts:", error);
         return []
     }
     return data;

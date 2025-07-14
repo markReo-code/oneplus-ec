@@ -6,7 +6,7 @@ import { getTshirts, Product } from "@/utils/supabase/supabaseClient";
 import Image from "next/image";
 import styles from "./index.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import Link from "next/link";
 
 export default function Slider() {
@@ -26,7 +26,7 @@ export default function Slider() {
         <h2 className={styles.title}>New Arrivals</h2>
         <Swiper
           id="swiper02"
-          modules={[Navigation, Autoplay]}
+          modules={[Navigation]}
           slidesPerView="auto"
           spaceBetween={12}
           breakpoints={{
@@ -58,7 +58,6 @@ export default function Slider() {
                     width={204}
                     height={292}
                     className="product-image"
-                    priority
                     style={{ height: "auto" }}
                   />
                 </figure>

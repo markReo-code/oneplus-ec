@@ -185,7 +185,7 @@ npm run dev
 - **`products` テーブルのみ** であれば、商品一覧・商品詳細ページなどの閲覧は可能です
 - **`orders` / `synonyms` テーブル** は Stripe決済・検索機能の再現に必須です
 - Supabase の Table Editor（GUI）を使えば、手動で簡単に作成できます  
-※検索機能に使う`synonyms` テーブル** は、PGroongaを用いた日本語全文検索ではSQL文で作成するのを推奨します。
+※検索機能に使う`synonyms` テーブルは、PGroongaを用いた日本語全文検索ではSQL文で作成するのを推奨します。
 
 ## 環境変数（Supabase / Stripe）
 

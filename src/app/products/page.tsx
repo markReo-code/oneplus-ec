@@ -21,7 +21,7 @@ export default async function Page() {
       <div className="inner">
         <h1 className="product-heading">ALL ITEMS</h1>
         <ul className="product-list">
-          {products.map((product) => (
+          {products.map((product, index) => (
             <li key={product.slug} className="product-item">
               <Link href={`/products/${product.slug}`} className="">
                 <figure className="product-media">
@@ -31,7 +31,7 @@ export default async function Page() {
                     width={272}
                     height={363}
                     alt={product.title}
-                    // priority
+                    priority={index < 4}
                   />
                 </figure>
                 <div className="product-content">
