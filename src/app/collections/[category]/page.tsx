@@ -3,13 +3,11 @@ import Link from "next/link";
 import { getProductsByCategory } from "@/utils/supabase/supabaseServer";
 
 type Props = {
-  params: {
-    category: string;
-  };
+  params: Promise<{ category: string }>;
 };
 
-export async function generateMetadata({params}: Props) {
-  const { category } = params;
+export async function generateMetadata({ params }: Props) {
+  const { category } = await params;
 
   // 英語カテゴリ名 → 日本語に変換
   const categoryLabelMap: Record<string, string> = {
@@ -17,17 +15,17 @@ export async function generateMetadata({params}: Props) {
     shirts: "シャツ",
     bottoms: "ボトムス",
     caps: "キャップ",
-  }
+  };
 
   const categoryLabel = categoryLabelMap[category] || category;
 
   return {
-    title: `${categoryLabel}一覧 | ONEPLUS`
-  }
+    title: `${categoryLabel}一覧 | ONEPLUS`,
+  };
 }
 
 export default async function CategoryPage({ params }: Props) {
-  const { category } = params;
+  const { category } = await params;
   const products = await getProductsByCategory(category);
 
   return (
@@ -48,11 +46,11 @@ export default async function CategoryPage({ params }: Props) {
                   />
                 </figure>
                 <div className="product-content">
-                    <p className="product-title">{product.title}</p>
-                    <p className="product-price">
-                      ￥{product.price.toLocaleString()}
-                    </p>
-                  </div>
+                  <p className="product-title">{product.title}</p>
+                  <p className="product-price">
+                    ￥{product.price.toLocaleString()}
+                  </p>
+                </div>
               </Link>
             </li>
           ))}

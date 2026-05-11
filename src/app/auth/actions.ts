@@ -7,7 +7,7 @@ import { createClient } from "@/utils/supabase/server";
 // ログイン機能
 export async function login(formData: FormData) {
   //Supabaseクライアント取得
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // フォームからデータ取得
   const data = {
@@ -32,7 +32,7 @@ export async function login(formData: FormData) {
 
 // ログアウト機能
 export async function logout() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 
   if (error) {
@@ -44,7 +44,7 @@ export async function logout() {
 
 //  ログインユーザーを確認する関数
 export async function getUserSession() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { session },
     error,
@@ -60,7 +60,7 @@ export async function getUserSession() {
 // サインアップ
 export async function signup(formData: FormData) {
   //Supabaseクライアント取得
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // フォームからデータ取得
   const data = {
@@ -82,9 +82,10 @@ export async function signup(formData: FormData) {
 
   //サインアップエラー
   if (error) {
-    const isDuplicate = 
-    error.name === "AuthApiError" && 
-    (error as any).status === 400 && error.message.toLowerCase().includes("already");
+    const isDuplicate =
+      error.name === "AuthApiError" &&
+      (error as any).status === 400 &&
+      error.message.toLowerCase().includes("already");
 
     console.error("SignUp Error:", error.message);
 
@@ -93,8 +94,8 @@ export async function signup(formData: FormData) {
       redirect("/error?type=signup-duplicate");
     }
 
-     // その他のサインアップエラー signup-other
-      redirect("/error?type=signup-other");
+    // その他のサインアップエラー signup-other
+    redirect("/error?type=signup-other");
   }
 
   // 確認メールページへリダイレクト
@@ -103,7 +104,7 @@ export async function signup(formData: FormData) {
 
 // パスワード再設定メールをユーザーに送信する関数　（パスワードリセット）
 export async function resetPasswordRequest(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const email = formData.get("email") as string;
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
