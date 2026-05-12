@@ -1,8 +1,13 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import {
+  loginSchema,
+  resetPasswordRequestSchema,
+  signupSchema,
+} from "@/features/auth/schema";
+import { revalidatePath } from "next/cache";
 
 // ログイン機能
 export async function login(formData: FormData) {
@@ -10,23 +15,31 @@ export async function login(formData: FormData) {
   const supabase = await createClient();
 
   // フォームからデータ取得
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+  const rawData = {
+    email: formData.get("email"),
+    password: formData.get("password"),
   };
 
-  // ログイン
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const result = loginSchema.safeParse(rawData);
 
-  // ログインエラーの場合
+  if (!result.success) {
+    console.error("Login Validation Error:", result.error);
+    redirect("/error?type=login");
+  }
+
+  const { email, password } = result.data;
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
   if (error) {
     console.error("Login Error:", error.message);
     redirect("/error?type=login");
   }
 
-  // トップページのlayoutを再検証
   revalidatePath("/", "layout");
-  //トップページへリダイレクト
   redirect("/");
 }
 
@@ -63,49 +76,64 @@ export async function signup(formData: FormData) {
   const supabase = await createClient();
 
   // フォームからデータ取得
-  const data = {
-    name: formData.get("name") as string,
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+  const rawData = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
   };
 
-  //サインアップ
+  const result = signupSchema.safeParse(rawData);
+
+  if (!result.success) {
+    console.error("Signup Validation Error:", result.error);
+    redirect("/error?type=signup-other");
+  }
+
+  const { name, email, password } = result.data;
+
   const { error } = await supabase.auth.signUp({
-    email: data.email,
-    password: data.password,
+    email,
+    password,
     options: {
       data: {
-        display_name: data.name,
+        display_name: name,
       },
     },
   });
 
-  //サインアップエラー
   if (error) {
+    const status = "status" in error ? error.status : undefined;
+
     const isDuplicate =
       error.name === "AuthApiError" &&
-      (error as any).status === 400 &&
+      status === 400 &&
       error.message.toLowerCase().includes("already");
 
     console.error("SignUp Error:", error.message);
 
-    // 重複登録の場合は signup-duplicate
     if (isDuplicate) {
       redirect("/error?type=signup-duplicate");
     }
 
-    // その他のサインアップエラー signup-other
     redirect("/error?type=signup-other");
   }
-
-  // 確認メールページへリダイレクト
   redirect("/confirm-email");
 }
 
 // パスワード再設定メールをユーザーに送信する関数　（パスワードリセット）
 export async function resetPasswordRequest(formData: FormData) {
   const supabase = await createClient();
-  const email = formData.get("email") as string;
+  const rawData = {
+    email: formData.get("email"),
+  };
+
+  const result = resetPasswordRequestSchema.safeParse(rawData);
+
+  if (!result.success) {
+    console.error("Password Reset Error:", result.error);
+    redirect("/error?type=reset");
+  }
+  const { email } = result.data;
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password`,
