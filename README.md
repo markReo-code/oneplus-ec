@@ -4,17 +4,23 @@
 
 ## 概要
 
-このリポジトリは、Next.js（App Router）と TypeScript を用いて構築した、仮想のメンズアパレルECサイト「ONEPLUS」の実装例です。  
-現在の実務ではWordPressが中心のため、Reactベースの最新技術スタック（Next.js, Supabase, Stripe, Zustandなど）を活用した実践的なECサイトを構築し、**フロントエンド技術の証明およびポートフォリオとして可視化**することを目的としています。  
-実在のブランドではありませんが、UI設計・アクセシビリティ・デザイン面にも配慮しています。  
-**Jamstack構成で本番想定のECサイトを構築する技術力**を表現しています。
+このリポジトリは、Next.js（App Router）と TypeScript を用いて構築した、仮想のメンズアパレルECサイト「ONEPLUS」の実装例です。
+
+Next.js / TypeScript を中心に、Supabase Auth・Stripe決済・Zustandによる状態管理などを組み合わせ、ECサイトに必要な **認証・
+商品表示・検索・カート・決済** までを実装しています。
+
+UI実装だけでなく、認証・データ取得・決済連携を含む **Webアプリケーション全体の設計・実装力** を示すポートフォリオとして制作しました。
+
+実在のブランドではありませんが、UI設計・アクセシビリティ・デザイン面にも配慮しています。
 
 ## 技術スタック
 
-- Next.js 14.1.4（App Router）
+- Next.js 15.5.18（App Router）
 - TypeScript
 - Supabase（データベース、認証、ストレージ）
 - Stripe （決済機能・テストモード）
+- React Hook Form（認証フォームの状態管理）
+- Zod（フォームバリデーション）
 - Zustand （カート状態の管理）
 - CSS Modules
 - React Hooks
@@ -24,41 +30,52 @@
 ## 主なディレクトリ構成
 
 ```
-src/
-├── app/
-│   ├── _components/         # 共通UIコンポーネント群（ヘッダー、ドロワー、検索パネルなど）
-│   ├── _constants/          # 定数やナビゲーションデータなど
-│   ├── _hooks/              # カスタムフック群（フォーカストラップや背景固定など）
-│   ├── _store/              # Zustandによる状態管理（カート機能周り）
-│   ├── api/                 # SupabaseやStripe関連のAPI関数
-│   ├── auth/                # 認証関連ユーティリティ
-│   ├── cart/                # カートページ
-│   ├── check-email/         # パスワード再設定用リンク送信の案内ページ
-│   ├── collections/         # 商品カテゴリページ
-│   │   └── [category]/      # カテゴリ別の商品一覧ページ（動的ルーティング）
-│   │       └── page.tsx
-│   ├── confirm-email/       # 新規会員登録後の「アカウント有効化」案内ページ
-│   ├── error/               # エラーページ
-│   ├── forget/              # パスワード再設定メール申請ページ
-│   ├── login/               # ログインページ（ログイン、ログアウト）
-│   ├── products/            # 商品関連ページ（一覧・詳細）
-│   │   ├── page.tsx         # 商品一覧ページ（全商品）
-│   │   └── [slug]/          # 商品詳細ページ（動的ルーティング）
-│   │       └── page.tsx     # ※内部で ProductDetail.tsx を分割して管理
-│   ├── register/            # 新規会員登録ページ（サインアップ）
-│   ├── reset-password/      # パスワード再設定ページ
-│   ├── search/              # 商品検索ページ
-│   ├── success/             # 決済完了ページ
-│   └── page.tsx             # トップページ
+├── src/
+│   ├── app/
+│   │   ├── _components/         # 共通UIコンポーネント群（ヘッダー、ドロワー、検索パネルなど）
+│   │   ├── _constants/          # 定数やナビゲーションデータなど
+│   │   ├── _hooks/              # カスタムフック群（フォーカストラップや背景固定など）
+│   │   ├── _store/              # Zustandによる状態管理（カート機能周り）
+│   │   ├── api/                 # Stripe Checkoutや注文作成などのAPI Route
+│   │   ├── auth/                # 認証関連のServer Actions / Callback Route
+│   │   │   ├── actions.ts
+│   │   │   └── confirm/route.ts
+│   │   ├── cart/                # カートページ
+│   │   ├── check-email/         # パスワード再設定用リンク送信の案内ページ
+│   │   ├── collections/         # 商品カテゴリページ
+│   │   │   └── [category]/      # カテゴリ別の商品一覧ページ（動的ルーティング）
+│   │   │       └── page.tsx
+│   │   ├── confirm-email/       # 新規会員登録後の「アカウント有効化」案内ページ
+│   │   ├── error/               # エラーページ
+│   │   ├── forget/              # パスワード再設定メール申請ページ
+│   │   ├── login/               # ログインページ
+│   │   ├── products/            # 商品関連ページ（一覧・詳細）
+│   │   │   ├── page.tsx         # 商品一覧ページ（全商品）
+│   │   │   └── [slug]/          # 商品詳細ページ（動的ルーティング）
+│   │   │       └── page.tsx     # ※内部で ProductDetail.tsx を分割して管理
+│   │   ├── register/            # 新規会員登録ページ
+│   │   ├── reset-password/      # パスワード再設定ページ
+│   │   ├── search/              # 商品検索ページ
+│   │   ├── success/             # 決済完了ページ
+│   │   └── page.tsx             # トップページ
+│   │
+│   ├── features/
+│   │   └── auth/
+│   │       ├── components/      # 認証フォーム用のClient Component群
+│   │       │   ├── ForgotPasswordForm.tsx
+│   │       │   ├── LoginForm.tsx
+│   │       │   ├── RegisterForm.tsx
+│   │       │   └── ResetPasswordForm.tsx
+│   │       └── schema.ts        # 認証フォームのZod schema
+│   │
+│   └── utils/
+│       └── supabase/            # Supabase関連の初期化・共通処理
 │
-├── utils/
-│   └── supabase/            # Supabase関連の初期化・共通処理
-│
-├── middleware.ts            # Edge Middleware（Supabase セッション同期）
+├── middleware.ts                # Edge Middleware（Supabase セッション同期）
 ├── next.config.mjs
 ├── tsconfig.json
 ├── package.json
-├── .env.local               # ローカル用の環境変数（`.env.example` を参考に作成／本番は Vercel に設定）
+└── .env.local                   # ローカル用の環境変数（`.env.example` を参考に作成／本番は Vercel に設定）
 ```
 
 ## 主な実装機能
@@ -93,12 +110,12 @@ src/
 以下の点については、実装目的の都合上、簡略化・ダミー対応となっています。
 
 - **フッターのリンク群（よくあるご質問 / 返品ポリシー / 利用規約 等）** は、全体のデザインバランスやレスポンシブ対応を考慮して仮で設置しています。  
-各リンクはダミー（すべてトップページに遷移）となっており、ページ自体の実装は行っていません。  
-ただし、各ページの実装は省略していますが、**実運用を想定したUI設計・マークアップ・アクセシビリティへの配慮は適切に行っています。**
+  各リンクはダミー（すべてトップページに遷移）となっており、ページ自体の実装は行っていません。  
+  ただし、各ページの実装は省略していますが、**実運用を想定したUI設計・マークアップ・アクセシビリティへの配慮は適切に行っています。**
 - Stripe 決済機能は**テストモードで動作**しており、実際の課金・配送処理は行われません。  
- 注文後は Supabase に購入データが保存され、購入フローの再現・検証が可能です。
+  注文後は Supabase に購入データが保存され、購入フローの再現・検証が可能です。
 - 新規会員登録・パスワードリセット時には、Supabase Auth（noreply@mail.app.supabase.io）から確認メールが届きます。  
-※無料プランの制約により、差出人名や文面はカスタマイズできませんが、有料プランにすることでブランドに合わせた調整が可能です。
+  ※無料プランの制約により、差出人名や文面はカスタマイズできませんが、有料プランにすることでブランドに合わせた調整が可能です。
 - 本プロジェクトの目的は、WordPress中心の現職とは異なり、Next.js / TypeScript / Supabase / Stripe などを活用して、**Webアプリケーションの構築スキルを証明・可視化すること**です。
 
 ## スクリーンショット
@@ -106,6 +123,7 @@ src/
 ### PC
 
 #### トップページ
+
 <br>
 
 ![トップページ](/public/screenshot-top.jpg)
@@ -113,20 +131,23 @@ src/
 ---
 
 #### 商品詳細ページ
+
 <br>
 
 ![商品詳細ページ](/public/screenshot-product-detail.jpg)
 
 ---
 
-#### カートページ  
+#### カートページ
+
 <br>
 
 ![カートページ](/public/screenshot-cart.jpg)
 
 ---
 
-#### 検索パネル展開  
+#### 検索パネル展開
+
 <br>
 
 ![検索パネル展開](/public/screenshot-search.jpg)
@@ -135,24 +156,26 @@ src/
 
 ### SP
 
-| ドロワー展開 | ドロップダウン展開 |
-|:--:|:--:|
+|              ドロワー展開              |             ドロップダウン展開              |
+| :------------------------------------: | :-----------------------------------------: |
 | ![](./public/screenshot-sp-drawer.jpg) | ![](./public/screenshot-sp-drawer-open.jpg) |
 
 ## 使い方
 
 ### 1. 実際のサイトで操作する
+
 本番環境: https://oneplus-ec.vercel.app/
 
 - 任意のメールアドレスで新規会員登録（サインアップ）が可能（確認メールが届きます）
 - ログイン状態であれば、商品詳細ページやカートに商品を追加していれば、
-「購入する」ボタンを押していただければStripeの決済画面に遷移します。  
-決済に関してはStripeのテストモードを利用しているので、課金せず（料金発生せず）実際に商品を買うことが出来ます。
+  「購入する」ボタンを押していただければStripeの決済画面に遷移します。  
+  決済に関してはStripeのテストモードを利用しているので、課金せず（料金発生せず）実際に商品を買うことが出来ます。
 
 <details>
 <summary>2. ローカルでコードを確認したい方向け（開発者向け）</summary>
 
 #### 前提
+
 - Node.js v18 以上を推奨
 
 #### セットアップ
@@ -165,10 +188,11 @@ npm run dev
 ```
 
 #### 注意点
+
 - 商品画像や認証・検索などの一部機能は Supabase 環境がないと正しく動作しません
 - Stripe との連携も環境変数の設定が必要です
 - .env.example を参考に .env.local を作成し、Supabase／Stripe のキーを設定することで再現可能です  
-※ Supabase／Stripe のアカウント登録が必要です
+  ※ Supabase／Stripe のアカウント登録が必要です
 
 </details>
 
@@ -176,16 +200,16 @@ npm run dev
 
 本プロジェクトでは、Supabase 上に以下の 3 つのテーブルを作成しています：
 
-| テーブル名 | 概要 |
-|------------|------|
-| `products` | 商品データ（title / price / image / category など） |
-| `orders`   | Stripe連携後に挿入される注文データ |
+| テーブル名 | 概要                                                                                                                |
+| ---------- | ------------------------------------------------------------------------------------------------------------------- |
+| `products` | 商品データ（title / price / image / category など）                                                                 |
+| `orders`   | Stripe連携後に挿入される注文データ                                                                                  |
 | `synonyms` | PGroonga を使った検索機能用の同義語データ（例: `tshirts` に「Tシャツ / カットソー / 半袖 などの表記ゆれ」を紐づけ） |
 
 - **`products` テーブルのみ** であれば、商品一覧・商品詳細ページなどの閲覧は可能です
 - **`orders` / `synonyms` テーブル** は Stripe決済・検索機能の再現に必須です
 - Supabase の Table Editor（GUI）を使えば、手動で簡単に作成できます  
-※検索機能に使う`synonyms` テーブルは、PGroongaを用いた日本語全文検索ではSQL文で作成するのを推奨します。
+  ※検索機能に使う`synonyms` テーブルは、PGroongaを用いた日本語全文検索ではSQL文で作成するのを推奨します。
 
 ## 環境変数（Supabase / Stripe）
 
