@@ -21,6 +21,7 @@ export const resetPasswordRequestSchema = z.object({
 export const updatePasswordSchema = z.object({
   password: z
     .string()
+    .min(1, "パスワードを入力してください。")
     .min(6, "6文字以上で入力してください。")
     .max(128, "パスワードは128文字以内で入力してください。"),
 });
