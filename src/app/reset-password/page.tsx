@@ -1,13 +1,17 @@
+import ResetPasswordForm from "@/features/auth/components/ResetPasswordForm";
 import type { Metadata } from "next";
-import ResetPassword from "./ResetPassword";
 
 export const metadata: Metadata = {
   title: "新しいパスワードの設定 | ONEPLUS",
-  robots: { index: false, follow: true}
-}
+  robots: { index: false, follow: true },
+};
 
 export default function Page() {
   return (
-    <ResetPassword />
+    <section className="page-content">
+      <div className="page-inner">
+        <ResetPasswordForm />
+      </div>
+    </section>
   );
 }

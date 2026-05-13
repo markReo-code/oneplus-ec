@@ -8,6 +8,7 @@ import {
   signupSchema,
 } from "@/features/auth/schema";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 // ログイン機能
 export async function login(formData: FormData) {
@@ -24,7 +25,11 @@ export async function login(formData: FormData) {
 
   if (!result.success) {
     console.error("Login Validation Error:", result.error);
-    redirect("/error?type=login");
+    return {
+      success: false,
+      message: "入力内容を確認してください。",
+      errors: z.flattenError(result.error).fieldErrors,
+    };
   }
 
   const { email, password } = result.data;
@@ -36,7 +41,10 @@ export async function login(formData: FormData) {
 
   if (error) {
     console.error("Login Error:", error.message);
-    redirect("/error?type=login");
+    return {
+      success: false,
+      message: "メールアドレスまたはパスワードが間違っています。",
+    };
   }
 
   revalidatePath("/", "layout");
@@ -65,7 +73,7 @@ export async function getUserSession() {
 
   if (error) {
     console.error("Session Fetch Error:", error.message);
-    redirect("/login"); // エラー時はログインページへリダイレクト
+    redirect("/login");
   }
   return session;
 }
@@ -86,7 +94,12 @@ export async function signup(formData: FormData) {
 
   if (!result.success) {
     console.error("Signup Validation Error:", result.error);
-    redirect("/error?type=signup-other");
+
+    return {
+      success: false,
+      message: "入力内容を確認してください。",
+      errors: z.flattenError(result.error).fieldErrors,
+    };
   }
 
   const { name, email, password } = result.data;
@@ -112,10 +125,20 @@ export async function signup(formData: FormData) {
     console.error("SignUp Error:", error.message);
 
     if (isDuplicate) {
-      redirect("/error?type=signup-duplicate");
+      return {
+        success: false,
+        message: "このメールアドレスはすでに登録されています。",
+        errors: {
+          email: ["このメールアドレスはすでに登録されています。"],
+        },
+      };
     }
 
-    redirect("/error?type=signup-other");
+    return {
+      success: false,
+      message:
+        "アカウントの作成に失敗しました。時間をおいて再度お試しください。",
+    };
   }
   redirect("/confirm-email");
 }
@@ -131,7 +154,12 @@ export async function resetPasswordRequest(formData: FormData) {
 
   if (!result.success) {
     console.error("Password Reset Error:", result.error);
-    redirect("/error?type=reset");
+
+    return {
+      success: false,
+      message: "入力内容を確認してください。",
+      errors: z.flattenError(result.error).fieldErrors,
+    };
   }
   const { email } = result.data;
 
@@ -141,7 +169,12 @@ export async function resetPasswordRequest(formData: FormData) {
 
   if (error) {
     console.error("Password Reset Error:", error.message);
-    redirect("/error?type=reset");
+
+    return {
+      success: false,
+      message:
+        "パスワード再設定メールの送信に失敗しました。時間をおいて再度お試しください。",
+    };
   }
 
   redirect("/check-email");
